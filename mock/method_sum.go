@@ -1,16 +1,15 @@
 package mock
 
+//суммирует две строки
 type MethodSum struct {
 }
 
-const mockMethodName string  = "sum"
-
 func (m *MethodSum) GetId() string {
-	return mockMethodName
+	return "sum"
 }
 
 func (m *MethodSum) GetName() string {
-	return "Calculate sum"
+	return "Calculate sum x+y"
 }
 
 func (m *MethodSum) GetParameters() []string {

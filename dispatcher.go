@@ -28,6 +28,10 @@ func (d *Dispatcher) Register(obj interface{}) bool {
 	return true
 }
 
+func (d *Dispatcher) Count() int{
+	return len(d.methods)
+}
+
 //func GetMethod(id string) MethodHeader {
 //	return availableMethods[id]
 //}
