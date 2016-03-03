@@ -5,6 +5,16 @@ import (
 	"github.com/andrushk/calculations/mock"
 )
 
+const method_parameters_count_wrong string = "У методики '%v' должно быть %v параметра, а реально %v"
+
+func getDispatcherWithMethods() *Dispatcher{
+	d := &Dispatcher{}
+	d.Register(&mock.MethodSum{})
+	d.Register(&mock.MethodMax{})
+	d.Register(&mock.MethodPi{})
+	return d
+}
+
 func TestNewDispatcherZeroCount(t *testing.T) {
 	if length := (&Dispatcher{}).Count(); length != 0 {
 		t.Fatalf("Кол-во методик в только что созданном диспетчере должно быть равным 0, а по факту %v", length)
@@ -44,5 +54,36 @@ func TestDispatcherAddSeveralMethod(t *testing.T) {
 
 	if count := d.Count(); !ok1 || !ok2 || count != 2 {
 		t.Fatalf("Проблемы с регистрацией двух методик, кол-во зарегистрированных %v", count)
+	}
+}
+
+func TestDispatcherGetMethodsList(t *testing.T) {
+	methods := getDispatcherWithMethods().GetMethods()
+
+	if count := len(methods); count != 3 {
+		t.Fatalf("Список должен содержать %v методики, а содержит %v", 3, count)
+	}
+
+	//проверим списки параметров
+	for _, m := range methods {
+		switch m.Id {
+		case mock.Mock_method_sum_id:
+			if count:=len(m.Parameters); count!=2{
+				t.Fatalf(method_parameters_count_wrong, m.Name, 2, count)
+			}
+			continue
+		case mock.Mock_method_max_id:
+			if count:=len(m.Parameters); count!=2{
+				t.Fatalf(method_parameters_count_wrong, m.Name, 2, count)
+			}
+			continue
+		case mock.Mock_method_pi_id:
+			if count:=len(m.Parameters); count!=0{
+				t.Fatalf(method_parameters_count_wrong, m.Name, 0, count)
+			}
+			continue
+		default:
+			t.Fatal("В списке методик найдены какие-то неопознанные методики")
+		}
 	}
 }

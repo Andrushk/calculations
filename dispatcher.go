@@ -1,5 +1,6 @@
 package calculations
 
+//коллекция методик расчета + методы управления ими
 type Dispatcher struct {
 	methods map[string]interface{}
 }
@@ -11,9 +12,8 @@ func (d *Dispatcher) initMethodsMap() {
 }
 
 func (d *Dispatcher) Register(obj interface{}) bool {
-	method, ok := obj.(MethodHeader)
-	if !ok {
-		//хорошо бы еще обругаться, что попытка зарегистрировать что-то не являющееся методикой
+	method := toMethodHeader(obj)
+	if method == nil {
 		return false
 	}
 
@@ -32,10 +32,34 @@ func (d *Dispatcher) Count() int{
 	return len(d.methods)
 }
 
-//func GetMethod(id string) MethodHeader {
-//	return availableMethods[id]
-//}
+func (d *Dispatcher) GetMethods() []MethodSpec {
+	result := make([]MethodSpec, len(d.methods))
 
-//func GetAllMethods() MethodsList  {
-//	return availableMethods
-//}
+	n := int(0)
+	for key, value := range d.methods {
+		result[n] = MethodSpec{
+			Id:key,
+			Name:value.(MethodHeader).GetName(),
+			Parameters:getParameters(value),
+		}
+		n++
+	}
+
+	return result
+}
+
+func getParameters(obj interface{}) []ParameterSpec {
+	method := toMethodHeader(obj)
+	if method == nil {
+		return nil
+	}
+
+	names := method.GetParameters()
+	spec := make([]ParameterSpec, len(names))
+
+	for idx, ee := range names {
+		spec[idx] = ParameterSpec{Id:ee, Name:getParameterName(obj,ee)}
+	}
+
+	return spec
+}

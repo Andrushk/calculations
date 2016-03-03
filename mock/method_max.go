@@ -4,8 +4,10 @@ package mock
 type MethodMax struct {
 }
 
+const Mock_method_max_id = "max"
+
 func (m *MethodMax) GetId() string {
-	return "max"
+	return Mock_method_max_id
 }
 
 func (m *MethodMax) GetName() string {
@@ -13,5 +15,5 @@ func (m *MethodMax) GetName() string {
 }
 
 func (m *MethodMax) GetParameters() []string {
-	return nil
+	return []string{"value1", "value2"}
 }
