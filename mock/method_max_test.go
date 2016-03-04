@@ -28,3 +28,12 @@ func TestMaxNotImplementMethodParameters(t *testing.T) {
 		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodParameters")
 	}
 }
+
+func TestMaxNotImplementMethodSingleValue(t *testing.T) {
+	var method interface{} = &MethodMax{}
+	_, ok := method.(calculations.MethodSingleValue)
+
+	if ok {
+		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodSingleValue")
+	}
+}

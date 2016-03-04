@@ -87,3 +87,30 @@ func TestDispatcherGetMethodsList(t *testing.T) {
 		}
 	}
 }
+
+func TestDispatcherCalculate(t *testing.T) {
+	dispatcher := getDispatcherWithMethods()
+
+	if _, err := dispatcher.Calculate(mock.Mock_method_max_id, nil); err == nil {
+		t.Fatalf("Calculate для '%v' должен приводить к ошибке, т.к. она не реализует MethodSingleValue",
+			mock.Mock_method_max_id)
+	}
+
+	//правильный расчет
+	if value, err := dispatcher.Calculate(mock.Mock_method_sum_id,
+		map[string]float64{
+			mock.Mock_method_parameter1: 37,
+			mock.Mock_method_parameter2: 5,
+		}); value != 42 || err != nil {
+		t.Fatalf("Ошибка при расчете, ответ сервера %v, ожидалось 42", value)
+	}
+
+	//бракованный расчет: ошибка в параметрах
+	if value, err := dispatcher.Calculate(mock.Mock_method_sum_id,
+		map[string]float64{
+			mock.Mock_method_parameter1: 37,
+			"wrong": 5,
+		}); value != 0 || err == nil {
+		t.Fatal("Ожидалась ошибка, так как не переданы необходимые параметры")
+	}
+}

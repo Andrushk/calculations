@@ -33,3 +33,7 @@ func (m *MethodSum) GetDescription(id string) string {
 
 	return ""
 }
+
+func (m *MethodSum) Calculate(values map[string]float64) float64 {
+	return values[Mock_method_parameter1] + values[Mock_method_parameter2]
+}

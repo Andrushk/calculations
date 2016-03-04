@@ -19,6 +19,20 @@ func TestAssistToMethodHeader(t *testing.T) {
 	}
 }
 
+func TestAssistToMethodSingleValue(t *testing.T) {
+	var realMethod interface{} = &mock.MethodSum{}
+	_, ok := (toMethodSingleValue(realMethod)).(MethodSingleValue)
+	if !ok {
+		t.Fatal("MethodSum не был приведен к MethodSingleValue")
+	}
+
+	var wrongMethod interface{} = &mock.MethodWrong{}
+	_, ok = (toMethodSingleValue(wrongMethod)).(MethodSingleValue)
+	if ok {
+		t.Fatal("Ошибка, что MethodWrong удалось привести к MethodSingleValue")
+	}
+}
+
 func TestAssistGetParameterName(t *testing.T) {
 	method := &mock.MethodSum{}
 	parameters := method.GetParameters()
@@ -34,7 +48,6 @@ func TestAssistGetParameterName(t *testing.T) {
 		}
 	}
 }
-
 
 func TestAssistGetParameterNameWrong(t *testing.T) {
 	//используется методика, не реализующая MethodParameters, т.е. не возвращающая имена параметров

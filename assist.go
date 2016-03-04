@@ -12,6 +12,15 @@ func toMethodHeader(obj interface{}) MethodHeader {
 	return method
 }
 
+//привести interface{} к MethodSingleValue
+func toMethodSingleValue(obj interface{}) MethodSingleValue {
+	if method, ok := obj.(MethodSingleValue); !ok {
+		return nil
+	}else {
+		return method
+	}
+}
+
 //если методика реализует MethodParameters, то получить имя параметра по его Id
 func getParameterName(source interface{}, id string) string {
 	m, ok := source.(MethodParameters)
