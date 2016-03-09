@@ -13,10 +13,10 @@ func TestSumShouldHaveTwoParameters(t *testing.T) {
 
 func TestSumShouldImplementMethodHeader(t *testing.T) {
 	var method interface{} = &MethodSum{}
-	_, ok := method.(calculations.MethodHeader)
+	_, ok := method.(calculations.Method)
 
 	if !ok {
-		t.Fatal("MethodSum в целях тестирования должен реализовывать MethodHeader")
+		t.Fatal("MethodSum в целях тестирования должен реализовывать Method")
 	}
 }
 
@@ -31,9 +31,9 @@ func TestSumShouldImplementMethodSingleValue(t *testing.T) {
 
 func TestSumShouldImplementMethodParameters(t *testing.T) {
 	var method interface{} = &MethodSum{}
-	_, ok := method.(calculations.MethodParameters)
+	_, ok := method.(calculations.MethodDetails)
 
 	if !ok {
-		t.Fatal("MethodSum в целях тестирования должен реализовывать MethodParameters")
+		t.Fatal("MethodSum в целях тестирования должен реализовывать MethodDetails")
 	}
 }

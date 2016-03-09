@@ -41,7 +41,7 @@ func (d *Dispatcher) GetMethods() []MethodSpec {
 	for key, value := range d.methods {
 		result[n] = MethodSpec{
 			Id:key,
-			Name:value.(MethodHeader).GetName(),
+			Name: getDescription(value, value.(Method).GetId()),
 			Parameters:getParameters(value),
 		}
 		n++
@@ -85,7 +85,7 @@ func getParameters(obj interface{}) []ParameterSpec {
 	spec := make([]ParameterSpec, len(names))
 
 	for idx, ee := range names {
-		spec[idx] = ParameterSpec{Id:ee, Name:getParameterName(obj,ee)}
+		spec[idx] = ParameterSpec{Id:ee, Name:getDescription(obj,ee)}
 	}
 
 	return spec

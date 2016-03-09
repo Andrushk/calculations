@@ -10,10 +10,6 @@ func (m *MethodMax) GetId() string {
 	return Mock_method_max_id
 }
 
-func (m *MethodMax) GetName() string {
-	return "Calculate Max(x,y)"
-}
-
 func (m *MethodMax) GetParameters() []string {
 	return []string{"value1", "value2"}
 }

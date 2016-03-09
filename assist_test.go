@@ -7,15 +7,15 @@ import (
 
 func TestAssistToMethodHeader(t *testing.T) {
 	var realMethod interface{} = &mock.MethodSum{}
-	_, ok := (toMethodHeader(realMethod)).(MethodHeader)
+	_, ok := (toMethodHeader(realMethod)).(Method)
 	if !ok {
-		t.Fatal("MethodSum не был приведен к MethodHeader")
+		t.Fatal("MethodSum не был приведен к Method")
 	}
 
 	var wrongMethod interface{} = &mock.MethodWrong{}
-	_, ok = (toMethodHeader(wrongMethod)).(MethodHeader)
+	_, ok = (toMethodHeader(wrongMethod)).(Method)
 	if ok {
-		t.Fatal("Ошибка, что MethodWrong удалось привести к MethodHeader")
+		t.Fatal("Ошибка, что MethodWrong удалось привести к Method")
 	}
 }
 
@@ -42,7 +42,7 @@ func TestAssistGetParameterName(t *testing.T) {
 	}
 
 	for _, p := range parameters {
-		p_name := getParameterName(method, p)
+		p_name := getDescription(method, p)
 		if len(p_name) == 0 {
 			t.Fatal("Не удалось получить имя параметра методики")
 		}
@@ -59,7 +59,7 @@ func TestAssistGetParameterNameWrong(t *testing.T) {
 	}
 
 	for _, p := range parameters {
-		p_name := getParameterName(method, p)
+		p_name := getDescription(method, p)
 		if len(p_name) != 0 {
 			t.Fatal("Удалось получить имя параметра, это ошибка")
 		}

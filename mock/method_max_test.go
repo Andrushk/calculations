@@ -13,19 +13,19 @@ func TestMaxShouldHaveTwoParameters(t *testing.T) {
 
 func TestMaxShouldImplementMethodHeader(t *testing.T) {
 	var method interface{} = &MethodMax{}
-	_, ok := method.(calculations.MethodHeader)
+	_, ok := method.(calculations.Method)
 
 	if !ok {
-		t.Fatal("MethodMax в целях тестирования должен реализовывать MethodHeader")
+		t.Fatal("MethodMax в целях тестирования должен реализовывать Method")
 	}
 }
 
 func TestMaxNotImplementMethodParameters(t *testing.T) {
 	var method interface{} = &MethodMax{}
-	_, ok := method.(calculations.MethodParameters)
+	_, ok := method.(calculations.MethodDetails)
 
 	if ok {
-		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodParameters")
+		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodDetails")
 	}
 }
 

@@ -1,17 +1,14 @@
 package calculations
 
-type MethodHeader interface {
+type Method interface {
 	GetId() string
-
-	//возвращает понятное пользователю имя методики
-	GetName() string
 
 	//возвращает список необходимых для расчета параметров
 	GetParameters() []string
 }
 
-type MethodParameters interface {
-	//возвращает описание(для пользователя) параметра
+type MethodDetails interface {
+	//возвращает описание(для пользователя) параметра или методики
 	GetDescription(id string) string
 }
 
