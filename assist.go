@@ -1,5 +1,5 @@
 package calculations
-
+// test
 //привести interface{} к методике
 func toMethodHeader(obj interface{}) Method {
 	method, ok := obj.(Method)
