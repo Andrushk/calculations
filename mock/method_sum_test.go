@@ -20,18 +20,9 @@ func TestSumShouldImplementMethodHeader(t *testing.T) {
 	}
 }
 
-func TestSumShouldImplementMethodSingleValue(t *testing.T) {
-	var method interface{} = &MethodSum{}
-	_, ok := method.(calculations.MethodSingleValue)
-
-	if !ok {
-		t.Fatal("MethodSum в целях тестирования должен реализовывать MethodSingleValue")
-	}
-}
-
 func TestSumShouldImplementMethodParameters(t *testing.T) {
 	var method interface{} = &MethodSum{}
-	_, ok := method.(calculations.MethodDetails)
+	_, ok := method.(calculations.MethodDescription)
 
 	if !ok {
 		t.Fatal("MethodSum в целях тестирования должен реализовывать MethodDetails")

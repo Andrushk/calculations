@@ -42,7 +42,7 @@ func TestDispatcherAddMethodTwice(t *testing.T){
 	d.Register(&mock.MethodSum{})
 	twice := d.Register(&mock.MethodSum{})
 
-	if twice{
+	if twice {
 		t.Fatal("Одну методику получилось зарегистрировать дважды")
 	}
 }
@@ -67,12 +67,12 @@ func TestDispatcherGetMethodsList(t *testing.T) {
 	//проверим списки параметров
 	for _, m := range methods {
 		switch m.Id {
-		case mock.Mock_method_sum_id:
+		case mock.MockMethodSumId:
 			if count:=len(m.Parameters); count!=2{
 				t.Fatalf(method_parameters_count_wrong, m.Name, 2, count)
 			}
 			continue
-		case mock.Mock_method_max_id:
+		case mock.MockMethodMaxId:
 			if count:=len(m.Parameters); count!=2{
 				t.Fatalf(method_parameters_count_wrong, m.Name, 2, count)
 			}
@@ -91,24 +91,24 @@ func TestDispatcherGetMethodsList(t *testing.T) {
 func TestDispatcherCalculate(t *testing.T) {
 	dispatcher := getDispatcherWithMethods()
 
-	if _, err := dispatcher.Calculate(mock.Mock_method_max_id, nil); err == nil {
+	if _, err := dispatcher.Calculate(mock.MockMethodMaxId, nil); err == nil {
 		t.Fatalf("Calculate для '%v' должен приводить к ошибке, т.к. она не реализует MethodSingleValue",
-			mock.Mock_method_max_id)
+			mock.MockMethodMaxId)
 	}
 
 	//правильный расчет
-	if value, err := dispatcher.Calculate(mock.Mock_method_sum_id,
+	if value, err := dispatcher.Calculate(mock.MockMethodSumId,
 		map[string]float64{
-			mock.Mock_method_parameter1: 37,
-			mock.Mock_method_parameter2: 5,
-		}); value != 42 || err != nil {
+			mock.MockMethodParam1: 37,
+			mock.MockMethodParam2: 5,
+		}); value.(float64) != 42 || err != nil {
 		t.Fatalf("Ошибка при расчете, ответ сервера %v, ожидалось 42", value)
 	}
 
 	//бракованный расчет: ошибка в параметрах
-	if value, err := dispatcher.Calculate(mock.Mock_method_sum_id,
+	if value, err := dispatcher.Calculate(mock.MockMethodSumId,
 		map[string]float64{
-			mock.Mock_method_parameter1: 37,
+			mock.MockMethodParam1: 37,
 			"wrong": 5,
 		}); value != 0 || err == nil {
 		t.Fatal("Ожидалась ошибка, так как не переданы необходимые параметры")

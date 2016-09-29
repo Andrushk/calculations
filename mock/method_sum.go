@@ -1,37 +1,37 @@
 package mock
 
 //суммирует два значения
-//реализует интерфейсы: Method, MethodDetails, MethodSingleValue
+//реализует интерфейсы: Method, MethodDescription, MethodSingleValue
 type MethodSum struct {
 }
 
 const (
-	Mock_method_sum_id = "sum"
-	Mock_method_parameter1 = "summand1"
-	Mock_method_parameter2 = "summand2"
+	MockMethodSumId = "sum"
+	MockMethodParam1 = "summand1"
+	MockMethodParam2 = "summand2"
 )
 
 func (m *MethodSum) GetId() string {
-	return Mock_method_sum_id
+	return MockMethodSumId
 }
 
 func (m *MethodSum) GetParameters() []string {
-	return []string{Mock_method_parameter1, Mock_method_parameter2}
+	return []string{MockMethodParam1, MockMethodParam2}
 }
 
 func (m *MethodSum) GetDescription(id string) string {
 	switch id {
-	case Mock_method_sum_id:
+	case MockMethodSumId:
 		return "Calculate sum x+y"
-	case Mock_method_parameter1:
+	case MockMethodParam1:
 		return "первое слагаемое"
-	case Mock_method_parameter2:
+	case MockMethodParam2:
 		return "второе слагаемое"
 	}
 
 	return ""
 }
 
-func (m *MethodSum) Calculate(values map[string]float64) float64 {
-	return values[Mock_method_parameter1] + values[Mock_method_parameter2]
+func (m *MethodSum) Calculate(values map[string]float64) interface{} {
+	return values[MockMethodParam1] + values[MockMethodParam2]
 }

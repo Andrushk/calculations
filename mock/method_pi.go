@@ -15,3 +15,7 @@ func (m *MethodPi) GetId() string {
 func (m *MethodPi) GetParameters() []string {
 	return nil
 }
+
+func (m *MethodPi) Calculate(values map[string]float64) interface{} {
+	return 3.14
+}

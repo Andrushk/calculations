@@ -4,12 +4,16 @@ package mock
 type MethodMax struct {
 }
 
-const Mock_method_max_id = "max"
+const MockMethodMaxId = "max"
 
 func (m *MethodMax) GetId() string {
-	return Mock_method_max_id
+	return MockMethodMaxId
 }
 
 func (m *MethodMax) GetParameters() []string {
 	return []string{"value1", "value2"}
+}
+
+func (m *MethodMax) Calculate(values map[string]float64) interface{} {
+	return values[MockMethodParam1] + values[MockMethodParam2]
 }

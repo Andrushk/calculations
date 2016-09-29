@@ -1,6 +1,8 @@
 package calculations
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //коллекция методик расчета + методы управления ими
 type Dispatcher struct {
@@ -50,21 +52,20 @@ func (d *Dispatcher) GetMethods() []MethodSpec {
 	return result
 }
 
-func (d *Dispatcher) Calculate(id string, values map[string]float64) (float64, error) {
-	obj, ok := d.methods[id]
-	if !ok {
-		return 0, fmt.Errorf("Методика '%v' не зарегистрирована", id)
+func (d *Dispatcher) Calculate(id string, values map[string]float64) (interface{}, error) {
+	obj, err := d.exists(id)
+	if err != nil {
+		return 0, err
 	}
 
-	//смотрим, может это вообще посчитать нельзя
-	calculator := toMethodSingleValue(obj)
+	calculator := toMethodHeader(obj)
 	if calculator == nil {
-		return 0, fmt.Errorf("Методика '%v' не реализует вычисление (MethodSingleValue)", id)
+		return nil, fmt.Errorf("'%v' не является корректной методикой!", obj)
 	}
 
 	//сверяем параметры методики с тем, что передано
 	parameters := make(map[string]float64)
-	for _, p_name := range toMethodHeader(obj).GetParameters() {
+	for _, p_name := range calculator.GetParameters() {
 		value, ok := values[p_name]
 		if !ok {
 			return 0, fmt.Errorf("Не указано значение для параметра '%v'", p_name)
@@ -73,6 +74,14 @@ func (d *Dispatcher) Calculate(id string, values map[string]float64) (float64, e
 	}
 
 	return calculator.Calculate(parameters), nil
+}
+
+func (d * Dispatcher) exists(id string) (interface{}, error) {
+	obj, ok := d.methods[id]
+	if !ok {
+		return nil, fmt.Errorf("Методика '%v' не зарегистрирована", id)
+	}
+	return obj, nil
 }
 
 func getParameters(obj interface{}) []ParameterSpec {

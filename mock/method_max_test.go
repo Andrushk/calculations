@@ -22,18 +22,9 @@ func TestMaxShouldImplementMethodHeader(t *testing.T) {
 
 func TestMaxNotImplementMethodParameters(t *testing.T) {
 	var method interface{} = &MethodMax{}
-	_, ok := method.(calculations.MethodDetails)
+	_, ok := method.(calculations.MethodDescription)
 
 	if ok {
-		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodDetails")
-	}
-}
-
-func TestMaxNotImplementMethodSingleValue(t *testing.T) {
-	var method interface{} = &MethodMax{}
-	_, ok := method.(calculations.MethodSingleValue)
-
-	if ok {
-		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodSingleValue")
+		t.Fatal("MethodMax в целях тестирования не должен реализовывать MethodDescription")
 	}
 }
