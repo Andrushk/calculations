@@ -20,7 +20,7 @@ type MethodDetails interface {
 //Dispatcher, для выполнения расчета, будет вызывать метод Calculate методики,
 //если методика не реализует данный интерфейс то при расчете произойдет ошибка
 type MethodSingleValue interface {
-	Calculate(values map[string]float64) float64
+	Calculate(values map[string]float64) CalculationResponse
 }
 
 //если потребуются методики, возращающие множество значений,
@@ -28,3 +28,8 @@ type MethodSingleValue interface {
 //type MethodMultiValues interface {
 	//Calculate(values map[string]float64) (value1, value2, ...
 //}
+
+type CalculationResponse interface {
+	GetTotal() float64
+	GetDetails() map[string]Detail
+}
