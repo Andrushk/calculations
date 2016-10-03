@@ -31,5 +31,5 @@ type MethodSingleValue interface {
 
 type CalculationResponse interface {
 	GetTotal() float64
-	GetDetails() map[string]Detail
+	GetDetails() map[string]*Detail
 }
