@@ -1,7 +1,9 @@
 package calculations
 
+import "github.com/andrushk/calculations/results"
+
 //если тип, хочет называться методикой и регистрироваться в Dispatcher,
-// то он должен реализовывать этот интерфейс
+//то он должен реализовывать этот интерфейс
 type Method interface {
 	//каждая методика должна иметь  свое уникальное имя (Id)
 	GetId() string
@@ -20,16 +22,5 @@ type MethodDetails interface {
 //Dispatcher, для выполнения расчета, будет вызывать метод Calculate методики,
 //если методика не реализует данный интерфейс то при расчете произойдет ошибка
 type MethodSingleValue interface {
-	Calculate(values map[string]float64) CalculationResponse
-}
-
-//если потребуются методики, возращающие множество значений,
-//то думаю потребудется добавление новых интерфейсов типа:
-//type MethodMultiValues interface {
-	//Calculate(values map[string]float64) (value1, value2, ...
-//}
-
-type CalculationResponse interface {
-	GetTotal() float64
-	GetDetails() map[string]*Detail
+	Calculate(values map[string]float64) results.MethodResult
 }

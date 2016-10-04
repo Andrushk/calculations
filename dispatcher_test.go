@@ -101,7 +101,7 @@ func TestDispatcherCalculate(t *testing.T) {
 		map[string]float64{
 			mock.Mock_method_parameter1: 37,
 			mock.Mock_method_parameter2: 5,
-		}); value != 42 || err != nil {
+		}); value.GetTotal() != 42 || err != nil {
 		t.Fatalf("Ошибка при расчете, ответ сервера %v, ожидалось 42", value)
 	}
 
@@ -110,7 +110,7 @@ func TestDispatcherCalculate(t *testing.T) {
 		map[string]float64{
 			mock.Mock_method_parameter1: 37,
 			"wrong": 5,
-		}); value != 0 || err == nil {
+		}); value != nil || err == nil {
 		t.Fatal("Ожидалась ошибка, так как не переданы необходимые параметры")
 	}
 }

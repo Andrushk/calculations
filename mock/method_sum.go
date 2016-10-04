@@ -1,5 +1,7 @@
 package mock
 
+import "github.com/andrushk/calculations/results"
+
 //суммирует два значения
 //реализует интерфейсы: Method, MethodDetails, MethodSingleValue
 type MethodSum struct {
@@ -32,6 +34,6 @@ func (m *MethodSum) GetDescription(id string) string {
 	return ""
 }
 
-func (m *MethodSum) Calculate(values map[string]float64) float64 {
-	return values[Mock_method_parameter1] + values[Mock_method_parameter2]
+func (m *MethodSum) Calculate(values map[string]float64) results.MethodResult {
+	return results.Number(values[Mock_method_parameter1] + values[Mock_method_parameter2])
 }

@@ -1,6 +1,9 @@
 package calculations
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/andrushk/calculations/results"
+)
 
 //коллекция методик расчета + методы управления ими
 type Dispatcher struct {
@@ -50,7 +53,7 @@ func (d *Dispatcher) GetMethods() []MethodSpec {
 	return result
 }
 
-func (d *Dispatcher) Calculate(id string, values map[string]float64) (CalculationResponse, error) {
+func (d *Dispatcher) Calculate(id string, values map[string]float64) (results.MethodResult, error) {
 	obj, ok := d.methods[id]
 	if !ok {
 		return nil, fmt.Errorf("Методика '%v' не зарегистрирована", id)
