@@ -1,6 +1,21 @@
 package results
 
+import "sort"
+
+// набор числовых параметров (имя = значение)
 type NumberList map[string] float64
+
+// возвращает отсортированный список имен(ключей) параметров
+func (ns NumberList) GetSortedKeys() *[]string {
+	var keys []string
+	for k := range ns{
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	return &keys
+}
+
 
 // простое число
 type Number float64
@@ -12,6 +27,7 @@ func (n Number) GetTotal() float64 {
 func (n Number) GetDetails() NumberList {
 	return nil
 }
+
 
 
 // сумма с деталями
